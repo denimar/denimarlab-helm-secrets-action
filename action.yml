@@ -1,0 +1,33 @@
+name: 'kubectl-simple'
+description: 'The kubectl command line program as a GitHub Action'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.kubectlVersion }}
+    - ${{ inputs.helmVersion }}
+    - ${{ inputs.helmSecretsVersion }}
+    - ${{ inputs.kubeConfigData }}
+    - ${{ inputs.command }}
+branding:
+  icon: 'terminal'
+  color: 'blue'
+inputs:
+  kubectlVersion:
+    description: 'kubectl version, e.g. `v1.22.1`, defaults to latest'
+    required: false
+    default: latest
+  helmVersion:
+    description: 'helm version, e.g. `v3.6.3`, defaults to latest'
+    required: false
+    default: latest
+  helmSecretsVersion:
+    description: 'helm secrets version, e.g. `v3.8.3`, defaults to latest'
+    required: false
+    default: latest
+  kubeConfigData:
+    description: 'kube config data'
+    required: true
+  command:
+    description: 'kubectl command to run, without the kubectl, e.g. `get pods`'
+    required: true
