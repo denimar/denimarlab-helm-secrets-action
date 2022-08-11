@@ -22,6 +22,10 @@ chmod +x kubectl
 mv kubectl /usr/local/bin
 
 # Installing helm secrets
+wget https://get.helm.sh/helm-$helmVersion-linux-amd64.tar.gz -O - | tar -xzO linux-amd64/helm > /usr/local/bin/helm 
+chmod +x /usr/local/bin/helm
+
+# Installing helm secrets
 helm plugin install "https://github.com/jkroepke/helm-secrets" --version $helmSecretsVersion
 
 # Extract the base64 encoded config data and write this to the KUBECONFIG
