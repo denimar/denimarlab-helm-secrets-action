@@ -6,7 +6,8 @@ kubectlVersion="$1"
 helmVersion="$2"
 helmSecretsVersion="$3"
 kubeConfigData="$4"
-command="$5"
+sopsAgeKeyFileInBase64="$5"
+command="$6"
 
 if [ "$kubectlVersion" = "latest" ]; then
   kubectlVersion=$(curl -Ls https://dl.k8s.io/release/stable.txt)
@@ -33,6 +34,10 @@ helm plugin install "https://github.com/jkroepke/helm-secrets" --version $helmSe
 echo "$kubeConfigData" | base64 -d > /tmp/kubeConfigData
 chmod g-r /tmp/kubeConfigData
 export KUBECONFIG=/tmp/kubeConfigData
+
+# Extract the base64 encoded age file for encryption
+echo "$sopsAgeKeyFileInBase64" | base64 -d > /tmp/age-key.txt
+export SOPS_AGE_KEY_FILE=/tmp/age-key.txt
 
 # Printing the command executed inside this action, just for troubleshooting
 echo "*************************************"

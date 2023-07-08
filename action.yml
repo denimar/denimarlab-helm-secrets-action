@@ -8,6 +8,7 @@ runs:
     - ${{ inputs.helmVersion }}
     - ${{ inputs.helmSecretsVersion }}
     - ${{ inputs.kubeConfigData }}
+    - ${{ inputs.sopsAgeKeyFileInBase64 }}
     - ${{ inputs.command }}
 branding:
   icon: 'terminal'
@@ -27,6 +28,9 @@ inputs:
     default: latest
   kubeConfigData:
     description: 'kube config data'
+    required: true
+  sopsAgeKeyFileInBase64:
+    description: 'Age Key file for secrets decryption'
     required: true
   command:
     description: 'kubectl command to run, without the kubectl, e.g. `get pods`'
